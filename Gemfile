@@ -12,6 +12,8 @@ gem 'unicorn'
 gem 'resque'
 gem 'mongoid', '3.0.23'
 
+gem 'haml'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

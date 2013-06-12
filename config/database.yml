@@ -4,14 +4,12 @@ development:
   pool: 5
   timeout: 5000
   socket: /tmp/mysql.sock
-  user: root
 test: &test
   adapter: mysql2
   database: badgeville_test
   pool: 5
   timeout: 5000
   socket: /tmp/mysql.sock
-  user: root
 production: &test
   adapter: mysql2
   database: badgeville_test

@@ -1,0 +1,42 @@
+production:
+  sessions:
+    default:
+      hosts: 
+        - "<%= "#{ENV['MONGOID_HOST']}:#{ENV['MONGOID_PORT']}" %>"
+      username: <%= ENV['MONGOID_USERNAME'] ? ENV['MONGOID_USERNAME'] : "" %>
+      password: <%= ENV['MONGOID_PASSWORD'] ? ENV['MONGOID_PASSWORD'] : "" %>
+      database: <%= ENV['MONGOID_DATABASE'] %>
+      pool_size: 4
+      options:
+        consistency: :eventual
+  options:
+    identity_map_enabled: true
+staging:
+  sessions:
+    default:
+      hosts: 
+        - "<%= "#{ENV['MONGOID_HOST']}:#{ENV['MONGOID_PORT']}" %>"
+      username: <%= ENV['MONGOID_USERNAME'] ? ENV['MONGOID_USERNAME'] : "" %>
+      password: <%= ENV['MONGOID_PASSWORD'] ? ENV['MONGOID_PASSWORD'] : "" %>
+      database: <%= ENV['MONGOID_DATABASE'] %>
+      options:
+        consistency: :strong
+  options:
+    identity_map_enabled: true
+development:
+  sessions:
+    default:
+      hosts: 
+        - "<%= "#{ENV['MONGOID_HOST'] ? ENV['MONGOID_HOST'] : "localhost"}:#{ENV['MONGOID_PORT'] ? ENV['MONGOID_PORT'] : "27017"}" %>"
+      <%if ENV['MONGOID_USERNAME'] %>
+      username: <%= ENV['MONGOID_USERNAME'] %>
+      <% end %>
+      <% if ENV['MONGOID_PASSWORD'] %>
+      password: <%= ENV['MONGOID_PASSWORD'] %>
+      <% end %> 
+      database: <%= ENV['MONGOID_DATABASE'] ? ENV['MONGOID_DATABASE'] : "boadgeville_mongo" %>
+      options:
+        consistency: :strong
+  options:
+    identity_map_enabled: true
+
