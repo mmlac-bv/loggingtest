@@ -1,6 +1,6 @@
 Logtest::Application.routes.draw do
 
-  resources :foo, only: [:index]
+  resources :mysqltest, only: [:index]
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

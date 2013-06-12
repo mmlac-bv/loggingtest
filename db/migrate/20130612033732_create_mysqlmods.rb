@@ -1,6 +1,6 @@
-class CreateBars < ActiveRecord::Migration
+class CreateMysqlmods < ActiveRecord::Migration
   def change
-    create_table :bars do |t|
+    create_table :mysqlmods do |t|
       t.string :fname
       t.string :lname
       t.integer :number
