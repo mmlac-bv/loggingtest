@@ -1,7 +1,5 @@
-Commit 03d6e85
-
-Log for hitting /foo (inserts a new document and displays it)
-
+Testbed for using Log4r as logger for Rails, Mongoid, ActiveRecord and custom
+logging with real time loglevel update
 
 
 
