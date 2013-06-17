@@ -14,6 +14,8 @@ gem 'mongoid', '3.0.23'
 
 gem 'haml'
 
+gem 'log4r', '1.1.10'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
