@@ -149,4 +149,4 @@ DEPENDENCIES
   resque
   sass-rails
   uglifier (>= 1.0.3)
-  unicorn
+  unicorn (= 4.6.2)

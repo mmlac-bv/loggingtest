@@ -83,3 +83,5 @@ end
 #Route Mongoid loggers to Log4r
 Mongoid.logger = Log4r::Logger['mongo']
 Moped.logger = Log4r::Logger['mongo']
+
+Log4r::Logger['rails'].info "LAUNCH worker"

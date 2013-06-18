@@ -7,7 +7,7 @@ source 'https://rubygems.org'
 
 gem 'mysql2'
 gem 'rails', '3.1.3'
-gem 'unicorn'
+gem 'unicorn', '4.6.2'
 
 gem 'resque'
 gem 'mongoid', '3.0.23'
