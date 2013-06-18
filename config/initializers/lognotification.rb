@@ -1,6 +1,26 @@
+$LOG_CHECK_TIME = Time.now
+def foobar
+  if Time.now - $LOG_CHECK_TIME > 20
+      #update log levels
+      begin
+          f = File.open("loglevels.txt", "r")
+          level = JSON.parse f.read
+          f.close
+          eval("Log4r::Logger['rails'].level = #{level['rails']}") if level['rails']
+          eval("Log4r::Logger['mysql'].level = #{level['mysql']}") if level['mysql']
+          eval("Log4r::Logger['mongo'].level = #{level['mongo']}") if level['mongo']
+
+      rescue Exception => e
+          Log4r::Logger['rails'].error "Setting the logging level failed:  #{e.message}"
+      end
+
+      $LOG_CHECK_TIME = Time.now 
+  end
+end
 ActiveSupport::Notifications.subscribe("process_action.action_controller") do |name, start, finish, id, payload|
   #["process_action.action_controller", 0.109161, "9ecf6f39160896d40130", {:controller=>"MysqltestController", :action=>"index", :params=>{"action"=>"index", "controller"=>"mysqltest"}, :format=>:html, :method=>"GET", :path=>"/mysqltest", :status=>200, :view_runtime=>44.013, :db_runtime=>5.72}
   logger = Log4r::Logger['rails']
+  foobar
   time_in_ms = ((finish - start).to_f * 100000).round / 100.0
 
   controller_format = "@method @status @path @duration"
@@ -64,7 +84,7 @@ end
 
 ActiveSupport::Notifications.subscribe "sql.active_record" do |name, start, finish, id, payload|
   logger = Log4r::Logger["mysql"] 
-  logger.info { payload[:sql] }
+  logger.debug { payload[:sql] }
 end
 
 
@@ -86,6 +106,3 @@ Moped.logger = Log4r::Logger['mongo']
 
 Log4r::Logger['rails'].info "LAUNCH worker"
 
-notifier = INotify::Notifier.new
-notifier.watch("foo.txt", :modify) {Log4r::Logger['rails'].error "foo.txt was modified!"}
-notifier.run

@@ -1,0 +1,1 @@
+{"rails":"INFO","mysql":"ERROR","mongo":"ERROR"}
