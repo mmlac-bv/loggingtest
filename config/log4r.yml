@@ -10,64 +10,74 @@ log4r_config:
     - FATAL
   # define all loggers ...
   loggers:
-    - name      : production
-      level     : WARN
-      trace     : 'false'
-      outputters :
-    - name      : development
-      level     : DEBUG
-      trace     : 'true'
-      outputters : 
-
     - name          : rails
       level         : DEBUG
       trace         : 'true'
       outputters    : 
       - RailsStdOutputter
-      - datefile
+      - railsfile
 
     - name          : mysql
       level         : DEBUG
       trace         : 'true'
       outputters    : 
       - ActiveRecordStdOutputter
-      - datefile
+      - activerecordfile
+
     - name          : mongo
       level         : DEBUG
       trace         : 'true'
       outputters    : 
       - MongoStdOutputter
-      - datefile
+      - mongofile
 
 
   # define all outputters (incl. formatters)
   outputters:
   - type: DateFileOutputter
-    name: datefile
+    name: railsfile
     dirname: "log"
-    filename: "my_app.log" # notice the file extension is needed! 
+    filename: "#{ENV}.log" # notice the file extension is needed! 
     formatter:
-      date_pattern: '%H:%M:%S.%L'
+      date_pattern: '%H:%M:%S.%L %z'
       pattern     : '[%p][RAILS][%d][%l]: %m '
+      type        : PatternFormatter
+
+  - type: DateFileOutputter
+    name: activerecordfile
+    dirname: "log"
+    filename: "#{ENV}.log" # notice the file extension is needed! 
+    formatter:
+      date_pattern: '%H:%M:%S.%L %z'
+      pattern     : '[%p][ACTIVERECORD][%d][%l]: %m '
+      type        : PatternFormatter
+
+  - type: DateFileOutputter
+    name: mongofile
+    dirname: "log"
+    filename: "#{ENV}.log" # notice the file extension is needed! 
+    formatter:
+      date_pattern: '%H:%M:%S.%L %z'
+      pattern     : '[%p][MONGO][%d][%l]: %m '
       type        : PatternFormatter
 
   - type: StdoutOutputter
     name: RailsStdOutputter
     formatter:
-      date_pattern: '%H:%M:%S.%L'
+      date_pattern: '%H:%M:%S.%L %z'
       pattern     : '[%p][RAILS][%d][%l]: %m '
       type        : PatternFormatter
 
   - type: StdoutOutputter
     name: ActiveRecordStdOutputter
     formatter:
-      date_pattern: '%H:%M:%S.%L'
+      date_pattern: '%H:%M:%S.%L %z'
       pattern     : '[%p][ACTIVERECORD][%d][%l]: %m '
       type        : PatternFormatter
 
   - type: StdoutOutputter
     name: MongoStdOutputter
     formatter:
-      date_pattern: '%H:%M:%S.%L'
+      date_pattern: '%H:%M:%S.%L %z'
       pattern     : '[%p][MONGO][%d][%l]: %m '
       type        : PatternFormatter
