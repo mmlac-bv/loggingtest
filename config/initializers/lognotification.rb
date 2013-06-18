@@ -85,3 +85,7 @@ Mongoid.logger = Log4r::Logger['mongo']
 Moped.logger = Log4r::Logger['mongo']
 
 Log4r::Logger['rails'].info "LAUNCH worker"
+
+notifier = INotify::Notifier.new
+notifier.watch("foo.txt", :modify) {Log4r::Logger['rails'].error "foo.txt was modified!"}
+notifier.run
