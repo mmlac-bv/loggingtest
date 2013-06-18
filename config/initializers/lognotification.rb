@@ -68,6 +68,12 @@ ActiveSupport::Notifications.subscribe "sql.active_record" do |name, start, fini
 end
 
 
+ActiveSupport::Notifications.subscribe "process_action.exception_object" do |name, start, finish, id, payload|
+  logger = Log4r::Logger['rails']
+  logger.exception { "msg:#{payload[:message]} - inspect:#{payload[:inspect]} - backtrace:#{payload[:backtrace].to_json}" }
+end
+
+
 
 # ActiveSupport::Notifications.subscribe "process_action.action_controller" do |name, start, finish, id, payload|
 ActiveSupport::Notifications.subscribe  do |name, start, finish, id, payload|
